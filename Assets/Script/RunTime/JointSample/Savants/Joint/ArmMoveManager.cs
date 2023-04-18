@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LegMoveManager : MonoBehaviour, IMoveManager
+public class ArmMoveManager : MonoBehaviour, IMoveManager
 {
     [SerializeField]
     private Transform[] jointPoint = new Transform[3];
+    //0:wrist, 1:elbow, 2:shoulder
 
 
     [SerializeField]
     private Transform virtualTracker;
 
     [SerializeField]
-    private Transform endTargetTracker;
+    private SpineMoveManager spineMoveManager;
+
 
     private float frontSection;
     private float backSection;
@@ -32,8 +34,7 @@ public class LegMoveManager : MonoBehaviour, IMoveManager
 
     //TODO : wristElbowDistance elbowShoulderDistance 묶어서 class로 관리
     //함수 인터페이스화
-    public void SetFrontJointRotate()
-    {
+    public void SetFrontJointRotate() {
         //가상좌표 생성
         Vector3 trackerVector = virtualTracker.localPosition;
         Vector3 shoulderVector = jointPoint[0].localPosition;
@@ -45,9 +46,7 @@ public class LegMoveManager : MonoBehaviour, IMoveManager
         //위값을 표적지로 두고 globalShoulderDegreeVertical, globalShoulderDegreeHorizons 생성 후 각도 측정하여 팔각도 설정
         //이후 회전 적용
         Vector3 v2 = pos - jointPoint[0].localPosition;
-
-        Debug.Log(virtualTracker.localPosition);
-
+        
         float globalShoulderDegreeVertical = CalculationFormulaUtil.GetAngleVertical(v2.y, v2.z);
 
         Vector2 v3 = new Vector2(trackerVector.x, trackerVector.y) - new Vector2(shoulderVector.x, shoulderVector.y);
@@ -56,15 +55,17 @@ public class LegMoveManager : MonoBehaviour, IMoveManager
         float distance0_2 = Vector3.Distance(virtualTracker.localPosition, jointPoint[0].localPosition);
         float shoulderArmDegree = CalculationFormulaUtil.GetEightDegree(frontSection, backSection, distance0_2);
 
-        float shoulderDegree = globalShoulderDegreeVertical - shoulderArmDegree;
+        float shoulderDegree = globalShoulderDegreeVertical + shoulderArmDegree;
         if (float.IsNaN(shoulderDegree))
         {
             return;
         }
 
-        //jointPoint[0].localRotation = Quaternion.Euler(new Vector3(degreeHorizons_1, 90, shoulderDegree));
-        jointPoint[0].localRotation = Quaternion.Euler(new Vector3(degreeHorizons_1, 90, shoulderDegree));
-        //jointPoint[0].Rotate(0, 0, -90);
+        
+        Debug.Log(virtualTracker.localRotation);
+
+        //return;
+        jointPoint[0].localRotation = Quaternion.Euler(new Vector3(-degreeHorizons_1, -90, -shoulderDegree));
 
         SetBackJointRotate(distance0_2, degreeHorizons_1);
     }
@@ -77,7 +78,10 @@ public class LegMoveManager : MonoBehaviour, IMoveManager
 
         jointPoint[1].localRotation = Quaternion.Euler(new Vector3(0, 0, 180 - elbowDegree));
         jointPoint[1].Rotate(-degreeHorizons_1, 0, 0);
+
+        spineMoveManager.SetSpineVaticalTarget(-virtualTracker.localPosition.x * 20);
     }
-
-
 }
+
+
+

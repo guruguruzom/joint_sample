@@ -1041,7 +1041,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891906748}
   m_LocalRotation: {x: 0.00088611647, y: -0.0005706973, z: 0.0018164993, w: 0.9999978}
-  m_LocalPosition: {x: -0.106, y: -0.295, z: -0.468}
+  m_LocalPosition: {x: -0.106, y: -0.421, z: -0.468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1603,13 +1603,6 @@ MonoBehaviour:
   upperarmR: {fileID: 1184374455}
   upperarmRTarget: {fileID: 567600524}
   lowerarmR: {fileID: 1184374456}
-  beforeMouse: {x: 0, y: 0}
-  target: {x: 0, y: 0}
-  mouse: {x: 0, y: 0}
-  m_positionGap: 10
-  isMouseInit: 1
-  lowerArmDegreeMin: 90
-  lowerArmDegreeMax: 0
 --- !u!114 &1184374459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1746,6 +1739,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706059220}
   m_CullTransparentMesh: 1
+--- !u!114 &1753167671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2913493000648667838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be1edcc0263e4e4458501ef43333d6fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upperarmL: {fileID: 2913493000649158326}
+  upperarmR: {fileID: 0}
 --- !u!1 &1771035728
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,6 +2511,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2913493000649158302}
   - component: {fileID: 2913493000658174246}
+  - component: {fileID: 1753167671}
+  - component: {fileID: 2913493000649158303}
   - component: {fileID: 2913493000649158305}
   - component: {fileID: 2913493000658174248}
   - component: {fileID: 2913493000658174247}
@@ -3186,6 +3195,24 @@ Transform:
   m_Father: {fileID: 453524501}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2913493000649158303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2913493000648667838}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f4d84fe4be7304aab38499765e2070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jointPoint:
+  - {fileID: 2913493000649158326}
+  - {fileID: 2913493000649158372}
+  - {fileID: 2913493000649158358}
+  virtualTracker: {fileID: 1771035729}
+  spineMoveManager: {fileID: 2913493000658174248}
 --- !u!4 &2913493000649158304
 Transform:
   m_ObjectHideFlags: 0
