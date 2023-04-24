@@ -62,7 +62,7 @@ public class ArmMoveManager : MonoBehaviour, IMoveManager
         }
 
         
-        Debug.Log(virtualTracker.localRotation);
+        //Debug.Log(virtualTracker.localRotation);
 
         //return;
         jointPoint[0].localRotation = Quaternion.Euler(new Vector3(-degreeHorizons_1, -90, -shoulderDegree));
